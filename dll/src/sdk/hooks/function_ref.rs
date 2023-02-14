@@ -27,7 +27,7 @@ macro_rules! function {
             };
             #[allow(non_camel_case_types)]
             $vs struct $name {
-                offset: std::cell::RefCell<$crate::sdk::hooks::FunctionAddress>,
+                pub offset: std::cell::RefCell<$crate::sdk::hooks::FunctionAddress>,
             }
             unsafe impl ::core::marker::Sync for $name { }
 

@@ -1,5 +1,5 @@
-mod client;
-mod hooks;
+pub(crate) mod client;
+pub mod hooks;
 
 use std::borrow::Borrow;
 use std::future::IntoFuture;

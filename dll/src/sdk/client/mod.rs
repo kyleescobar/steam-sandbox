@@ -2,6 +2,9 @@ use faithe::internal::{get_module_information, ModuleInfo};
 use once_cell::sync::OnceCell;
 use crate::sdk::Global;
 
+pub mod globals;
+pub mod functions;
+
 pub struct Client {
     module: ModuleInfo
 }

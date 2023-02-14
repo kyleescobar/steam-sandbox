@@ -38,6 +38,7 @@ unsafe fn on_load() {
         AllocConsole();
         SimpleLogger::new().init().unwrap();
         lazy_static::initialize(&SDK);
+        sandbox::start();
     });
 
     match res {

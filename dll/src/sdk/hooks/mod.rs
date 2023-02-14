@@ -2,7 +2,6 @@
 
 use std::arch::asm;
 use std::{mem, sync::RwLock};
-use std::io::Error;
 use std::marker::Tuple;
 
 use detour::{Function, RawDetour};
@@ -15,7 +14,7 @@ use once_cell::sync::OnceCell;
 pub use self::function_ref::{FunctionAddress, FunctionRef};
 use crate::sdk::Global;
 
-mod function_ref;
+pub mod function_ref;
 mod hook;
 
 pub struct Hook {
