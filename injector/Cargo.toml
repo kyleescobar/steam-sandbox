@@ -1,0 +1,14 @@
+[package]
+name = "injector"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "sandbox"
+path = "src/main.rs"
+
+[dependencies]
+dll = { path = "../dll" }
+dll-syringe = "0.15.0"
+rust-embed = { version = "6.4.2", features = ["include-exclude"] }
+
