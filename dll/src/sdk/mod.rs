@@ -1,5 +1,6 @@
 pub(crate) mod client;
 pub mod hooks;
+pub mod overlay;
 
 use std::borrow::Borrow;
 use std::future::IntoFuture;
@@ -9,6 +10,7 @@ use tokio::runtime::Runtime;
 use tokio::task::JoinHandle;
 use crate::sdk::client::Client;
 use crate::sdk::hooks::Hooks;
+use crate::sdk::overlay::Overlay;
 
 lazy_static! {
     pub static ref SDK: SandboxSdk = SandboxSdk::setup();
@@ -27,6 +29,7 @@ pub type Sandbox = std::sync::Arc<SandboxSdk>;
 pub struct SandboxSdk {
     client: &'static Client,
     hooks: &'static Hooks,
+    overlay: &'static Overlay,
     scheduler: Runtime,
 }
 
@@ -38,6 +41,7 @@ impl SandboxSdk {
 
             let client = Client::get_or_create();
             let hooks = Hooks::get_or_create();
+            let overlay = Overlay::get_or_create();
             let scheduler = Runtime::new().unwrap();
 
             log::info!("Sandbox has been initialized.");
@@ -46,6 +50,7 @@ impl SandboxSdk {
             Self {
                 client,
                 hooks,
+                overlay,
                 scheduler
             }
         }
@@ -55,9 +60,11 @@ impl SandboxSdk {
         self.client
     }
 
-    fn get_hooks(&self) -> &'static Hooks {
+    pub fn get_hooks(&self) -> &'static Hooks {
         self.hooks
     }
+
+    pub fn get_overlay(&self) -> &'static Overlay { self.overlay }
 
     pub fn spawn<T>(&self, future: T) -> JoinHandle<<T as IntoFuture>::Output>
     where

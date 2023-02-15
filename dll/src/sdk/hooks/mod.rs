@@ -15,7 +15,7 @@ pub use self::function_ref::{FunctionAddress, FunctionRef};
 use crate::sdk::Global;
 
 pub mod function_ref;
-mod hook;
+pub mod hook;
 
 pub struct Hook {
     buffer: ExecutableBuffer,
