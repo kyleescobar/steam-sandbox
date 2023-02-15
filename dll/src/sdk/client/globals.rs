@@ -5,7 +5,7 @@
 use crate::*;
 
 global! {
-    pub extern LOGIN_STATE: u32 = "osclient.exe"% "8B 0D ? ? ? ? 85 C9 0F 85 A8 03 00 00";
+    pub mut extern LOGIN_STATE: u32 = "osclient.exe"% "8B 0D ? ? ? ? 85 C9 0F 85 A8 03 00 00";
     pub extern CAMERA_TILE_Y_MIN: u32 = "osclient.exe"% "8B 2D ? ? ? ? 3B 2D";
     pub extern CAMERA_TILE_Y_MAX: u32 = "osclient.exe"% "3B 2D ? ? ? ? 0F 8D 0C 01 00 00";
     pub extern CAMERA_TILE_X_MIN: u32 = "osclient.exe"% "44 8B 35 ?? ?? ?? ?? 44 3B 35";

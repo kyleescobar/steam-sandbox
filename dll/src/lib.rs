@@ -13,6 +13,7 @@ pub use faithe;
 pub use faithe::{global, interface};
 
 use std::{panic, thread};
+use log::LevelFilter;
 use simple_logger::SimpleLogger;
 use winapi::shared::minwindef::{BOOL, DWORD, HINSTANCE, LPVOID, TRUE};
 use winapi::um::consoleapi::AllocConsole;
@@ -24,25 +25,19 @@ pub extern "system" fn DllMain(
     reason: DWORD,
     _: LPVOID
 ) -> BOOL {
-    match reason {
-        1 => { thread::spawn(move || {
-            unsafe { on_load(); }
-        }); },
-        _ => {}
-    };
+    if reason == 1 { thread::spawn(move || {
+        unsafe { on_load(); }
+    }); };
     TRUE
 }
 
 unsafe fn on_load() {
     let res = panic::catch_unwind(|| {
         AllocConsole();
-        SimpleLogger::new().init().unwrap();
+        SimpleLogger::new().with_level(LevelFilter::Info).init().unwrap();
         lazy_static::initialize(&SDK);
         sandbox::start();
     });
 
-    match res {
-        Err(e) => log::error!("Error: {:?}", e),
-        _ => {}
-    };
+    if let Err(e) = res { log::error!("Error: {:?}", e) };
 }

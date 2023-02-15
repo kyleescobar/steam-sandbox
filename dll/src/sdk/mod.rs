@@ -4,13 +4,14 @@ pub mod overlay;
 
 use std::borrow::Borrow;
 use std::future::IntoFuture;
+use std::ops::Deref;
 use lazy_static::lazy_static;
 use once_cell::sync::OnceCell;
 use tokio::runtime::Runtime;
 use tokio::task::JoinHandle;
 use crate::sdk::client::Client;
 use crate::sdk::hooks::Hooks;
-use crate::sdk::overlay::Overlay;
+use crate::sdk::overlay::{Overlay};
 
 lazy_static! {
     pub static ref SDK: SandboxSdk = SandboxSdk::setup();
@@ -43,6 +44,13 @@ impl SandboxSdk {
             let hooks = Hooks::get_or_create();
             let overlay = Overlay::get_or_create();
             let scheduler = Runtime::new().unwrap();
+
+            /*
+             * Startup the overlay.
+             */
+            log::info!("Starting sandbox overlay.");
+            overlay.start();
+            log::info!("Sandbox overlay manager has been started.");
 
             log::info!("Sandbox has been initialized.");
             log::info!("Module Base: 0x{:x}", client.get_module().dll_base as usize);
