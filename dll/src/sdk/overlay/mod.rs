@@ -2,7 +2,6 @@ use std::sync::RwLock;
 use egui_backend::egui::{Context, Window};
 use egui_backend::egui::mutex::Mutex;
 use egui_backend::{GfxBackend, UserApp, WindowBackend};
-use egui_render_wgpu::WgpuBackend;
 use egui_window_glfw_passthrough::GlfwWindow;
 use once_cell::sync::OnceCell;
 use crate::sdk::{Global, SDK};
@@ -39,7 +38,7 @@ impl Global for Overlay {
     }
 }
 
-impl UserApp<GlfwWindow, WgpuBackend> for Overlay {
+impl UserApp<GlfwWindow, T> for Overlay {
     fn run(&mut self, ctx: &Context, window_backend: &mut GlfwWindow, gl_backend: &mut WgpuBackend) {
         Window::new("Hello World").show(ctx, |ui| {
 

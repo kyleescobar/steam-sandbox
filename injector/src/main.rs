@@ -3,12 +3,6 @@ use std::thread;
 use std::time::Duration;
 use dll_syringe::process::{OwnedProcess, Process};
 use dll_syringe::Syringe;
-use rust_embed::RustEmbed;
-
-#[derive(RustEmbed)]
-#[folder = "../target/debug/"]
-#[include = "sandbox.dll"]
-struct Asset;
 
 fn main() {
     let mut process = OwnedProcess::find_first_by_name("osclient.exe");

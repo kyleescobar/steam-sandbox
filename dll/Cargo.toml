@@ -28,4 +28,6 @@ detour = { git = "https://github.com/Hpmason/detour-rs", branch = "fix-nightly1.
 faithe = { git = "https://github.com/sy1ntexx/faithe" }
 tokio = { version = "1.25.0", features = ["rt", "rt-multi-thread"] }
 chrono = "0.4.23"
-egui_overlay = "0.2.3"
+egui_backend = "0.2.0"
+egui_window_glfw_passthrough = "0.2.1"
+etk = { git = "https://github.com/kyleescobar/etk" }
